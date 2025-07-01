@@ -143,10 +143,10 @@ const Navbar = () => {
           <div className="container mx-auto px-4 flex flex-col space-y-4">
             {[
               { href: "/", text: "Home" },
-              { href: "/featured", text: "Featured" },
-              { href: "/products", text: "Products" },
-              { href: "/about", text: "About" },
-              { href: "/contact", text: "Contact" }
+              { href: "/Featured", text: "Featured" },
+              { href: "/Products", text: "Products" },
+              { href: "/About", text: "About" },
+              { href: "/Contact", text: "Contact" }
             ].map((link) => (
               <Link 
                 key={link.href}
