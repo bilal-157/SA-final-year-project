@@ -126,13 +126,18 @@ const Navbar = () => {
             )}
 
             {/* Mobile Menu Button */}
-            <button 
-              className="md:hidden text-gray-800 text-xl p-2"
-              onClick={() => setIsMenuOpen(!isMenuOpen)}
-              aria-label="Toggle menu"
-            >
-              {isMenuOpen ? <i className="fas fa-times"></i> : <i className="fas fa-bars"></i>}
-            </button>
+            <button
+  className="md:hidden flex flex-col justify-center items-center w-12 h-12 rounded-md bg-amber-800 hover:bg-amber-700 text-white transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-amber-500 focus:ring-offset-2"
+  onClick={() => setIsMenuOpen(!isMenuOpen)}
+  aria-label={isMenuOpen ? "Close menu" : "Open menu"}
+>
+  {/* Animated hamburger icon that transforms to X */}
+  <div className="space-y-1.5 w-6">
+    <span className={`block h-0.5 w-6 bg-white transition-all duration-300 ${isMenuOpen ? 'rotate-45 translate-y-2' : ''}`}></span>
+    <span className={`block h-0.5 w-6 bg-white transition-all duration-300 ${isMenuOpen ? 'opacity-0' : 'opacity-100'}`}></span>
+    <span className={`block h-0.5 w-6 bg-white transition-all duration-300 ${isMenuOpen ? '-rotate-45 -translate-y-2' : ''}`}></span>
+  </div>
+</button>
           </div>
         </div>
 
