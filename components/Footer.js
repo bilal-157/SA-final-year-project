@@ -1,0 +1,97 @@
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faEnvelope, faPhone, faMapMarkerAlt, faHeart } from '@fortawesome/free-solid-svg-icons'
+import { faFacebookF, faTwitter, faInstagram, faPinterest } from '@fortawesome/free-brands-svg-icons'
+
+const Footer = () => {
+  return (
+    <footer className="bg-gray-900 text-white pt-16 pb-8">
+      <div className="container mx-auto px-4">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-12">
+          <div>
+            <h3 className="text-xl font-bold mb-4 relative pb-2">About Artisan Collection</h3>
+            <p className="text-gray-400 mb-4">
+              Discover the beauty of handmade craftsmanship. Each piece in our collection celebrates 
+              the skill and tradition of artisans from around the world.
+            </p>
+            <div className="flex space-x-4">
+              <a href="#" className="w-10 h-10 bg-gray-800 rounded-full flex items-center justify-center text-white hover:bg-amber-800 transition duration-300">
+                <FontAwesomeIcon icon={faFacebookF} />
+              </a>
+              <a href="#" className="w-10 h-10 bg-gray-800 rounded-full flex items-center justify-center text-white hover:bg-amber-800 transition duration-300">
+                <FontAwesomeIcon icon={faTwitter} />
+              </a>
+              <a href="#" className="w-10 h-10 bg-gray-800 rounded-full flex items-center justify-center text-white hover:bg-amber-800 transition duration-300">
+                <FontAwesomeIcon icon={faInstagram} />
+              </a>
+              <a href="#" className="w-10 h-10 bg-gray-800 rounded-full flex items-center justify-center text-white hover:bg-amber-800 transition duration-300">
+                <FontAwesomeIcon icon={faPinterest} />
+              </a>
+            </div>
+          </div>
+
+          <div>
+            <h3 className="text-xl font-bold mb-4 relative pb-2">Quick Links</h3>
+            <ul className="space-y-2">
+              <li><a href="/" className="text-gray-400 hover:text-amber-500 transition duration-300">Home</a></li>
+              <li><a href="/Featured" className="text-gray-400 hover:text-amber-500 transition duration-300">Featured</a></li>
+              <li><a href="#" className="text-gray-400 hover:text-amber-500 transition duration-300">Collection</a></li>
+              <li><a href="#" className="text-gray-400 hover:text-amber-500 transition duration-300">About</a></li>
+              <li><a href="#" className="text-gray-400 hover:text-amber-500 transition duration-300">Contact</a></li>
+            </ul>
+          </div>
+
+          <div>
+            <h3 className="text-xl font-bold mb-4 relative pb-2">Customer Service</h3>
+            <ul className="space-y-2">
+              <li><a href="#" className="text-gray-400 hover:text-amber-500 transition duration-300">Shipping Policy</a></li>
+              <li><a href="#" className="text-gray-400 hover:text-amber-500 transition duration-300">Return Policy</a></li>
+              <li><a href="#" className="text-gray-400 hover:text-amber-500 transition duration-300">Care Instructions</a></li>
+              <li><a href="#" className="text-gray-400 hover:text-amber-500 transition duration-300">FAQs</a></li>
+              <li><a href="#" className="text-gray-400 hover:text-amber-500 transition duration-300">Privacy Policy</a></li>
+            </ul>
+          </div>
+
+          <div>
+            <h3 className="text-xl font-bold mb-4 relative pb-2">Contact Info</h3>
+            <ul className="space-y-2 text-gray-400">
+              <li className="flex items-start">
+                <FontAwesomeIcon 
+                  icon={faEnvelope} 
+                  className="text-amber-500 mt-1 mr-3" 
+                />
+                williamsmoses2001@gmail.com
+              </li>
+              <li className="flex items-start">
+                <FontAwesomeIcon 
+                  icon={faPhone} 
+                  className="text-amber-500 mt-1 mr-3" 
+                />
+                +232 79711783
+              </li>
+              <li className="flex items-start">
+                <FontAwesomeIcon 
+                  icon={faMapMarkerAlt} 
+                  className="text-amber-500 mt-1 mr-3" 
+                />
+                4 Kolleh Lane, Off Aberdeen ferry road
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <div className="pt-6 border-t border-gray-800 text-center text-gray-400 text-sm">
+          <p>
+            &copy; {new Date().getFullYear()} Artisan Collection. All rights reserved. | Designed with 
+            <FontAwesomeIcon 
+              icon={faHeart} 
+              className="text-amber-500 mx-1" 
+            /> 
+            by Moses Williams
+          </p>
+        </div>
+      </div>
+    </footer>
+  );
+};
+
+export default Footer;
