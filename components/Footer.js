@@ -1,6 +1,7 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faEnvelope, faPhone, faMapMarkerAlt, faHeart } from '@fortawesome/free-solid-svg-icons'
 import { faFacebookF, faTwitter, faInstagram, faPinterest } from '@fortawesome/free-brands-svg-icons'
+import Link from 'next/link';
 
 const Footer = () => {
   return (
@@ -14,40 +15,40 @@ const Footer = () => {
               the skill and tradition of artisans from around the world.
             </p>
             <div className="flex space-x-4">
-              <a href="#" className="w-10 h-10 bg-gray-800 rounded-full flex items-center justify-center text-white hover:bg-amber-800 transition duration-300">
+              <Link href="#" className="w-10 h-10 bg-gray-800 rounded-full flex items-center justify-center text-white hover:bg-amber-800 transition duration-300">
                 <FontAwesomeIcon icon={faFacebookF} />
-              </a>
-              <a href="#" className="w-10 h-10 bg-gray-800 rounded-full flex items-center justify-center text-white hover:bg-amber-800 transition duration-300">
+              </Link>
+              <Link href="#" className="w-10 h-10 bg-gray-800 rounded-full flex items-center justify-center text-white hover:bg-amber-800 transition duration-300">
                 <FontAwesomeIcon icon={faTwitter} />
-              </a>
-              <a href="#" className="w-10 h-10 bg-gray-800 rounded-full flex items-center justify-center text-white hover:bg-amber-800 transition duration-300">
+              </Link>
+              <Link href="#" className="w-10 h-10 bg-gray-800 rounded-full flex items-center justify-center text-white hover:bg-amber-800 transition duration-300">
                 <FontAwesomeIcon icon={faInstagram} />
-              </a>
-              <a href="#" className="w-10 h-10 bg-gray-800 rounded-full flex items-center justify-center text-white hover:bg-amber-800 transition duration-300">
+              </Link>
+              <Link href="#" className="w-10 h-10 bg-gray-800 rounded-full flex items-center justify-center text-white hover:bg-amber-800 transition duration-300">
                 <FontAwesomeIcon icon={faPinterest} />
-              </a>
+              </Link>
             </div>
           </div>
 
           <div>
             <h3 className="text-xl font-bold mb-4 relative pb-2">Quick Links</h3>
             <ul className="space-y-2">
-              <li><a href="/" className="text-gray-400 hover:text-amber-500 transition duration-300">Home</a></li>
-              <li><a href="/Featured" className="text-gray-400 hover:text-amber-500 transition duration-300">Featured</a></li>
-              <li><a href="#" className="text-gray-400 hover:text-amber-500 transition duration-300">Collection</a></li>
-              <li><a href="#" className="text-gray-400 hover:text-amber-500 transition duration-300">About</a></li>
-              <li><a href="#" className="text-gray-400 hover:text-amber-500 transition duration-300">Contact</a></li>
+              <li><Link href="/" className="text-gray-400 hover:text-amber-500 transition duration-300">Home</Link></li>
+              <li><Link href="/Featured" className="text-gray-400 hover:text-amber-500 transition duration-300">Featured</Link></li>
+              <li><Link href="#" className="text-gray-400 hover:text-amber-500 transition duration-300">Collection</Link></li>
+              <li><Link href="#" className="text-gray-400 hover:text-amber-500 transition duration-300">About</Link></li>
+              <li><Link href="#" className="text-gray-400 hover:text-amber-500 transition duration-300">Contact</Link></li>
             </ul>
           </div>
 
           <div>
             <h3 className="text-xl font-bold mb-4 relative pb-2">Customer Service</h3>
             <ul className="space-y-2">
-              <li><a href="#" className="text-gray-400 hover:text-amber-500 transition duration-300">Shipping Policy</a></li>
-              <li><a href="#" className="text-gray-400 hover:text-amber-500 transition duration-300">Return Policy</a></li>
-              <li><a href="#" className="text-gray-400 hover:text-amber-500 transition duration-300">Care Instructions</a></li>
-              <li><a href="#" className="text-gray-400 hover:text-amber-500 transition duration-300">FAQs</a></li>
-              <li><a href="#" className="text-gray-400 hover:text-amber-500 transition duration-300">Privacy Policy</a></li>
+              <li><Link href="#" className="text-gray-400 hover:text-amber-500 transition duration-300">Shipping Policy</Link></li>
+              <li><Link href="#" className="text-gray-400 hover:text-amber-500 transition duration-300">Return Policy</Link></li>
+              <li><Link href="#" className="text-gray-400 hover:text-amber-500 transition duration-300">Care Instructions</Link></li>
+              <li><Link href="#" className="text-gray-400 hover:text-amber-500 transition duration-300">FAQs</Link></li>
+              <li><Link href="#" className="text-gray-400 hover:text-amber-500 transition duration-300">Privacy Policy</Link></li>
             </ul>
           </div>
 

@@ -10,7 +10,7 @@ const FeaturedProduct = () => {
 
         <div className="flex flex-col md:flex-row gap-8 md:gap-12">
           <div className="md:w-1/2 rounded-xl overflow-hidden shadow-lg hover:shadow-xl transition-shadow duration-300">
-            import Image from 'next/image';
+            import Image from &apos;next/image&apos;
 
 <Image
   src="https://i.etsystatic.com/56767725/r/il/173e9b/6978031697/il_300x300.6978031697_k4nv.jpg"

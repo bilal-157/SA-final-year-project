@@ -193,7 +193,10 @@ const NewArrivals = () => {
               />
               <div className="coming-soon-info p-6">
                 <h3 className="text-xl font-bold text-gray-800 mb-2">Stone Jewelry</h3>
-                <p className="text-gray-600 mb-3">Handcrafted jewelry from Sierra Leone's famous soapstone</p>
+                <p className="text-gray-600 mb-3">
+                  Handcrafted jewelry from Sierra Leone&apos;s famous soapstone
+
+                </p>
                 <p className="text-amber-700 font-medium mb-4">Available September 2025</p>
                 <button className="notify-me bg-gray-800 hover:bg-gray-700 text-white px-4 py-2 rounded-full text-sm transition duration-300">
                   Notify Me

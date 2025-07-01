@@ -10,7 +10,7 @@ import ContactSection from '../components/ContactSection';
 import Footer from '../components/Footer';
 import AuthModal from '../components/AuthModel';
 import { useState } from 'react';
-
+import Notification from '@/components/Notification';
 export default function Home() {
   const [isAuthModalOpen, setIsAuthModalOpen] = useState(false);
   const [notification, setNotification] = useState(null);
@@ -50,7 +50,7 @@ export default function Home() {
         onClose={() => setIsAuthModalOpen(false)}
       />
 
-      {notification && (
+      {notification==0 && (
         <Notification 
           message={notification} 
           onClose={() => setNotification(null)}

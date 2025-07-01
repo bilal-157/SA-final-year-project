@@ -17,8 +17,8 @@ const AboutSection = () => {
           through generations.
         </p>
         <p className="text-gray-600">
-          By choosing Artisan Collection, you're not just acquiring a beautiful object - you're becoming 
-          part of a story that connects you to the hands that made it and the culture that inspired it.
+          By choosing Artisan Collection, you&apos;re not just acquiring a beautiful object – you&apos;re becoming
+  part of a story that connects you to the hands that made it and the culture that inspired it.
         </p>
       </div>
     </section>

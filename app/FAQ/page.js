@@ -1,12 +1,20 @@
 "use client";
 import Footer from '@/components/Footer';
 import Navbar from '@/components/Navbar';
-import React, { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 const FAQ = () => {
   const [activeIndex, setActiveIndex] = useState(null);
+  const [selectedCategory, setSelectedCategory] = useState("all");
+  const [isMounted, setIsMounted] = useState(false);
+
+  useEffect(() => {
+    setIsMounted(true);
+    return () => setIsMounted(false);
+  }, []);
 
   const toggleAccordion = (index) => {
+    if (!isMounted) return;
     setActiveIndex(activeIndex === index ? null : index);
   };
 
@@ -82,15 +90,13 @@ const FAQ = () => {
     { id: "mission", name: "Our Mission" }
   ];
 
-  const [selectedCategory, setSelectedCategory] = useState("all");
-
   const filteredFaqs = selectedCategory === "all" 
     ? faqs 
     : faqs.filter(faq => faq.category === selectedCategory);
 
   return (
     <div className="min-h-screen flex flex-col bg-gray-50">
-      <Navbar/>
+      <Navbar />
       
       {/* FAQ Header */}
       <section className="bg-blue-600 text-white py-20">
@@ -111,9 +117,11 @@ const FAQ = () => {
               <button
                 key={category.id}
                 onClick={() => setSelectedCategory(category.id)}
-                className={`px-6 py-2 rounded-full ${selectedCategory === category.id 
-                  ? 'bg-blue-600 text-white' 
+                className={`px-6 py-2 rounded-full transition-colors duration-200 ${selectedCategory === category.id 
+                  ? 'bg-blue-600 text-white shadow-md' 
                   : 'bg-white text-gray-700 border border-gray-300 hover:bg-gray-100'}`}
+                aria-label={`Filter by ${category.name}`}
+                aria-pressed={selectedCategory === category.id}
               >
                 {category.name}
               </button>
@@ -121,12 +129,17 @@ const FAQ = () => {
           </div>
 
           {/* FAQ Accordion */}
-          <div className="max-w-4xl mx-auto">
+          <div className="max-w-4xl mx-auto space-y-4">
             {filteredFaqs.map((faq, index) => (
-              <div key={index} className="mb-4 bg-white rounded-lg shadow-md overflow-hidden">
+              <div 
+                key={`${faq.category}-${index}`} 
+                className="bg-white rounded-lg shadow-md overflow-hidden transition-all duration-200 hover:shadow-lg"
+              >
                 <button
-                  className="w-full flex justify-between items-center p-6 text-left focus:outline-none"
+                  className="w-full flex justify-between items-center p-6 text-left focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 rounded-lg"
                   onClick={() => toggleAccordion(index)}
+                  aria-expanded={activeIndex === index}
+                  aria-controls={`faq-${index}-content`}
                 >
                   <h3 className="text-lg font-semibold text-gray-800">{faq.question}</h3>
                   <svg
@@ -134,28 +147,39 @@ const FAQ = () => {
                     fill="none"
                     viewBox="0 0 24 24"
                     stroke="currentColor"
+                    aria-hidden="true"
                   >
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7" />
                   </svg>
                 </button>
                 <div
+                  id={`faq-${index}-content`}
                   className={`px-6 pb-6 pt-0 transition-all duration-300 ease-in-out ${activeIndex === index ? 'block' : 'hidden'}`}
+                  role="region"
                 >
                   <p className="text-gray-600">{faq.answer}</p>
                 </div>
               </div>
             ))}
+
+            {filteredFaqs.length === 0 && (
+              <div className="text-center py-12">
+                <p className="text-gray-500">No questions found in this category.</p>
+              </div>
+            )}
           </div>
 
           {/* Still have questions */}
           <div className="mt-16 text-center">
             <h3 className="text-2xl font-bold text-gray-800 mb-4">Still have questions?</h3>
             <p className="text-gray-600 mb-6 max-w-2xl mx-auto">
-              Can't find the answer you're looking for? Our artisan support team is happy to help.
-            </p>
+             Can&apos;t find the answer you&apos;re looking for? Our artisan support team is happy to help.</p>
+
+          
             <a
-              href="/contact"
-              className="inline-block px-8 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition duration-300 font-medium"
+              href="/Contact"
+              className="inline-block px-8 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition duration-300 font-medium focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
+              aria-label="Contact our support team"
             >
               Contact Our Team
             </a>
@@ -163,7 +187,7 @@ const FAQ = () => {
         </div>
       </section>
 
-      <Footer/>
+      <Footer />
     </div>
   );
 };
