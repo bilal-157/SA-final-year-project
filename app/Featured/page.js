@@ -3,6 +3,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faArrowRight, faHeart } from '@fortawesome/free-solid-svg-icons'
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
+import Link from 'next/link';
 
 const NewArrivals = () => {
   return (
@@ -54,12 +55,12 @@ const NewArrivals = () => {
                     <span className="text-gray-700">Handcrafted by Mr Alusine Bangura</span>
                   </div>
                   <div className="price text-amber-800 font-bold text-xl mb-6">SLL 3,500,000 - SLL 5,500,000</div>
-                  <a 
-                    href="/product-detail?id=featured" 
+                  <Link 
+                    href="/Products" 
                     className="shop-now bg-amber-800 hover:bg-amber-700 text-white px-6 py-2 rounded-full inline-block transition duration-300"
                   >
                     Discover More
-                  </a>
+                  </Link>
                 </div>
               </div>
             </div>
@@ -93,12 +94,12 @@ const NewArrivals = () => {
                     <span className="text-gray-700 text-sm">Woven by Juan in Guatemala</span>
                   </div>
                   <div className="price text-amber-800 font-bold mb-4">SLL 1,800,000 - SLL 3,900,000</div>
-                  <a 
-                    href="/product-detail?id=new1" 
+                  <Link 
+                    href="/Products" 
                     className="shop-now border border-amber-800 text-amber-800 hover:bg-amber-50 px-4 py-2 rounded-full inline-block text-sm transition duration-300"
                   >
                     View Collection
-                  </a>
+                  </Link>
                 </div>
               </div>
               
@@ -128,12 +129,12 @@ const NewArrivals = () => {
                     <span className="text-gray-700 text-sm">Carved by Koji in Kyoto</span>
                   </div>
                   <div className="price text-amber-800 font-bold mb-4">SLL 2,700,000 - SLL 6,800,000</div>
-                  <a 
-                    href="/product-detail?id=new2" 
+                  <Link 
+                    href="/Products" 
                     className="shop-now border border-amber-800 text-amber-800 hover:bg-amber-50 px-4 py-2 rounded-full inline-block text-sm transition duration-300"
                   >
                     Explore
-                  </a>
+                  </Link>
                 </div>
               </div>
             </div>
