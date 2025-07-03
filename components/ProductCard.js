@@ -12,7 +12,7 @@ const ProductCard = ({ product }) => {
     }
     localStorage.setItem("cart", JSON.stringify(existingCart));
     window.dispatchEvent(new CustomEvent("cartUpdated"));
-    alert(`${product.name} added to cart!`);
+    console.log(`${product.name} ad ded to cart!`);
   };
 
   const badgeColor = {
@@ -43,7 +43,7 @@ const ProductCard = ({ product }) => {
       </div>
       <div className="p-5">
         <h3 className="text-lg font-semibold mb-2">{product.name}</h3>
-        <p className="text-amber-800 font-bold text-xl mb-4">Le {product.price.toLocaleString()}</p>
+        <p className="text-amber-800 font-bold text-xl mb-4">SLL {product.price.toLocaleString()}</p>
         <button
           onClick={addToCart}
           className="w-full py-2 bg-amber-800 hover:bg-amber-700 text-white rounded-md font-medium transition duration-300"

@@ -280,7 +280,7 @@ const Navbar = () => {
                   </div>
                   <div className="ml-4 flex-1">
                     <h4 className="font-medium">{item.name}</h4>
-                    <p className="text-amber-800 font-semibold">Le {item.price}</p>
+                    <p className="text-amber-800 font-semibold">SLL {item.price}</p>
                     <div className="flex items-center mt-2">
                       <button 
                         onClick={() => updateItemQuantity(item.id, item.quantity - 1)}
@@ -312,7 +312,7 @@ const Navbar = () => {
           <div className="absolute bottom-0 left-0 right-0 border-t bg-white p-4">
             <div className="flex justify-between mb-4">
               <span className="font-semibold">Total:</span>
-              <span className="text-amber-800 font-bold">Le {calculateTotal()}</span>
+              <span className="text-amber-800 font-bold">SLL {calculateTotal()}</span>
             </div>
             <Link
               href="/Checkout"
