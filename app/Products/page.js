@@ -4,7 +4,8 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSearch, faShoppingBag, faStar } from '@fortawesome/free-solid-svg-icons';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
-import ProductCard from '@/components/ProductCard'; // ✅ Import ProductCard
+import ProductCard from '@/components/ProductCard';
+import Image from 'next/image';
 
 const ProductsPage = () => {
   const [searchQuery, setSearchQuery] = useState('');
@@ -20,135 +21,22 @@ const ProductsPage = () => {
   const productsPerPage = 8;
 
   useEffect(() => {
-    const mockProducts = [
-      {
-        id: 1,
-        name: 'Handwoven Basket',
-        category: 'textiles',
-        origin: 'Freetown',
-        material: 'fabric',
-        price: 45.99,
-        rating: 4.5,
-        image: '/products/basket.jpg',
-        isNew: true,
-        artisan: 'Alusine Bangura',
-        description: 'Handwoven using traditional Sierra Leonean techniques with natural dyes',
-        badge: 'New'
-      },
-      {
-        id: 2,
-        name: 'Ceramic Vase',
-        category: 'pottery',
-        origin: 'Kenema',
-        material: 'clay',
-        price: 65.50,
-        rating: 4.8,
-        image: '/products/vase.jpg',
-        isNew: false,
-        artisan: 'Fatmata Conteh',
-        description: 'Hand-thrown pottery with intricate tribal patterns',
-        badge: 'Premium'
-      },
-      {
-        id: 3,
-        name: 'Wooden Sculpture',
-        category: 'woodwork',
-        origin: 'Bo',
-        material: 'wood',
-        price: 89.99,
-        rating: 4.7,
-        image: '/products/sculpture.jpg',
-        isNew: true,
-        artisan: 'Mohamed Kamara',
-        description: 'Carved mahogany depicting traditional folklore',
-        badge: 'Limited'
-      },
-      {
-        id: 4,
-        name: 'Beaded Necklace',
-        category: 'jewelry',
-        origin: 'Makeni',
-        material: 'glass',
-        price: 32.99,
-        rating: 4.3,
-        image: '/products/necklace.jpg',
-        isNew: false,
-        artisan: 'Mariatu Sesay',
-        description: 'Hand-strung glass beads in vibrant colors',
-        badge: 'Popular'
-      },
-      {
-        id: 5,
-        name: 'Metal Wall Art',
-        category: 'metalwork',
-        origin: 'Kono',
-        material: 'metal',
-        price: 75.25,
-        rating: 4.6,
-        image: '/products/wall-art.jpg',
-        isNew: true,
-        artisan: 'Ibrahim Koroma',
-        description: 'Hand-hammered copper with geometric designs',
-        badge: 'Special'
-      },
-      {
-        id: 6,
-        name: 'Glass Ornament',
-        category: 'glass',
-        origin: 'Bonthe',
-        material: 'glass',
-        price: 28.99,
-        rating: 4.2,
-        image: '/products/ornament.jpg',
-        isNew: false,
-        artisan: 'Hawa Bangura',
-        description: 'Hand-blown glass with swirling colors',
-        badge: 'Custom'
-      },
-      {
-        id: 7,
-        name: 'Leather Sandals',
-        category: 'textiles',
-        origin: 'Freetown',
-        material: 'leather',
-        price: 55.00,
-        rating: 4.4,
-        image: '/products/sandals.jpg',
-        isNew: true,
-        artisan: 'Samuel Turay',
-        description: 'Hand-stitched leather with traditional patterns',
-        badge: 'New'
-      },
-      {
-        id: 8,
-        name: 'Soapstone Carving',
-        category: 'stone',
-        origin: 'Kenema',
-        material: 'stone',
-        price: 42.75,
-        rating: 4.9,
-        image: '/products/soapstone.jpg',
-        isNew: false,
-        artisan: 'Aminata Kamara',
-        description: 'Intricately carved soapstone figurine',
-        badge: 'Premium'
-      }
-    ];
-
     const fetchProducts = async () => {
       try {
         setLoading(true);
-        await new Promise(resolve => setTimeout(resolve, 1000)); // simulate delay
-        setProducts(mockProducts);
+        const res = await fetch('/api/products');
+        const data = await res.json();
+        setProducts(data);
       } catch (error) {
         console.error('Error fetching products:', error);
       } finally {
         setLoading(false);
       }
     };
-
+  
     fetchProducts();
   }, []);
+  
 
   const handleSearch = (e) => {
     e.preventDefault();
@@ -203,8 +91,10 @@ const ProductsPage = () => {
       <main className="bg-amber-50 min-h-screen">
         {/* Products Header */}
         <section className="bg-amber-800 text-white py-20 text-center">
-          <h1 className="text-4xl md:text-5xl font-bold mb-4">Handcrafted Artisan Creations</h1>
-          <p className="text-xl">Discover unique pieces crafted with passion by skilled artisans</p>
+          <div className="container mx-auto px-4">
+            <h1 className="text-4xl md:text-5xl font-bold mb-4">Handcrafted Artisan Creations</h1>
+            <p className="text-xl">Discover unique pieces crafted with passion by skilled artisans</p>
+          </div>
         </section>
 
         {/* Search & Filters */}
@@ -370,27 +260,29 @@ const ProductsPage = () => {
 
         {/* Newsletter */}
         <section className="py-16 bg-amber-800 text-white text-center">
-          <h2 className="text-3xl font-bold mb-4">Join Our Artisan Circle</h2>
-          <p className="text-xl mb-8 max-w-2xl mx-auto">
-            Receive stories of craftsmanship, exclusive previews of new collections, and special invitations to artisan workshops
-          </p>
-          <form className="flex flex-col sm:flex-row gap-2 max-w-md mx-auto">
-            <input
-              type="email"
-              placeholder="Your email address"
-              required
-              className="flex-grow px-4 py-3 rounded-full text-gray-800 focus:outline-none focus:ring-2 focus:ring-amber-600"
-            />
-            <button
-              type="submit"
-              className="bg-gray-900 hover:bg-gray-800 px-6 py-3 rounded-full font-medium"
-            >
-              Subscribe
-            </button>
-          </form>
-          <p className="mt-6 text-sm opacity-80">
-            By signing up, you agree to our Privacy Policy and Terms of Service.
-          </p>
+          <div className="container mx-auto px-4">
+            <h2 className="text-3xl font-bold mb-4">Join Our Artisan Circle</h2>
+            <p className="text-xl mb-8 max-w-2xl mx-auto">
+              Receive stories of craftsmanship, exclusive previews of new collections, and special invitations to artisan workshops
+            </p>
+            <form className="flex flex-col sm:flex-row gap-2 max-w-md mx-auto">
+              <input
+                type="email"
+                placeholder="Your email address"
+                required
+                className="flex-grow px-4 py-3 rounded-full text-gray-800 focus:outline-none focus:ring-2 focus:ring-amber-600"
+              />
+              <button
+                type="submit"
+                className="bg-gray-900 hover:bg-gray-800 px-6 py-3 rounded-full font-medium"
+              >
+                Subscribe
+              </button>
+            </form>
+            <p className="mt-6 text-sm opacity-80">
+              By signing up, you agree to our Privacy Policy and Terms of Service.
+            </p>
+          </div>
         </section>
       </main>
 
