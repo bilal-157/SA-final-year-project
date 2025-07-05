@@ -14,6 +14,14 @@ const Navbar = () => {
   const [cartItems, setCartItems] = useState([]);
   const [cartCount, setCartCount] = useState(0);
 
+  // Check if user is logged in on initial load
+  useEffect(() => {
+    const token = localStorage.getItem('token');
+    if (token) {
+      setIsLoggedIn(true);
+    }
+  }, []);
+
   // Handle scroll effect
   useEffect(() => {
     const handleScroll = () => {
@@ -47,9 +55,9 @@ const Navbar = () => {
     const handleClickOutside = (event) => {
       const cartSidebar = document.querySelector('.cart-sidebar');
       const cartButton = document.querySelector('.cart-button');
-      
-      if (isCartOpen && cartSidebar && !cartSidebar.contains(event.target) && 
-          cartButton && !cartButton.contains(event.target)) {
+
+      if (isCartOpen && cartSidebar && !cartSidebar.contains(event.target) &&
+        cartButton && !cartButton.contains(event.target)) {
         setIsCartOpen(false);
       }
     };
@@ -60,24 +68,75 @@ const Navbar = () => {
 
   // Auth functions
   const switchAuthTab = (tab) => setActiveAuthTab(tab);
+
   const openAuthModal = (type) => {
     setActiveAuthTab(type);
     type === 'login' ? (setIsLoginOpen(true), setIsSignupOpen(false)) : (setIsSignupOpen(true), setIsLoginOpen(false));
   };
 
-  const handleAuthSubmit = (e) => {
+  const handleLogout = () => {
+    localStorage.removeItem('token');
+    localStorage.removeItem('user');
+    setIsLoggedIn(false);
+  };
+
+  const handleAuthSubmit = async (e, action) => {
     e.preventDefault();
-    setIsLoggedIn(true);
-    setIsLoginOpen(false);
-    setIsSignupOpen(false);
+
+    const formData = new FormData(e.target);
+    const data = Object.fromEntries(formData.entries());
+
+    // For signup, check if passwords match
+    if (action === 'signup' && data.password !== data.confirmPassword) {
+      alert("Passwords don't match!");
+      return;
+    }
+
+    try {
+      const response = await fetch('/api/users', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          ...data,
+          action: action // 'login' or 'signup'
+        }),
+      });
+
+      const result = await response.json();
+
+      if (!response.ok) {
+        throw new Error(result.error || 'Something went wrong');
+      }
+
+      if (action === 'login') {
+        // Store the token and user data
+        localStorage.setItem('token', result.token);
+        localStorage.setItem('user', JSON.stringify(result.user));
+        // Update login state
+        setIsLoggedIn(true);
+        // Close the modal
+        setIsLoginOpen(false);
+        setIsSignupOpen(false);
+      } else {
+        // For signup, switch to login tab
+        switchAuthTab('login');
+        // Show success message
+        alert('Account created successfully! Please login.');
+      }
+    } catch (error) {
+      alert(error.message);
+      console.error('Authentication error:', error);
+    }
   };
 
   // Cart functions
   const updateItemQuantity = (id, newQuantity) => {
-    const updatedCart = cartItems.map(item => 
-      item.id === id ? {...item, quantity: newQuantity} : item
+    const updatedCart = cartItems.map(item =>
+      item.id === id ? { ...item, quantity: newQuantity } : item
     ).filter(item => item.quantity > 0);
-    
+
     localStorage.setItem('cart', JSON.stringify(updatedCart));
     window.dispatchEvent(new CustomEvent('cartUpdated'));
   };
@@ -95,9 +154,8 @@ const Navbar = () => {
   return (
     <>
       {/* Fixed Navigation Bar */}
-      <nav className={`fixed w-full z-50 transition-all duration-300 ${
-        isScrolled ? 'py-3 bg-white shadow-md' : 'py-4 bg-white/95 backdrop-blur-md'
-      }`}>
+      <nav className={`fixed w-full z-50 transition-all duration-300 ${isScrolled ? 'py-3 bg-white shadow-md' : 'py-4 bg-white/95 backdrop-blur-md'
+        }`}>
         <div className="container mx-auto px-4 flex justify-between items-center">
           {/* Logo */}
           <Link href="/" className="flex items-center text-2xl font-bold">
@@ -115,7 +173,7 @@ const Navbar = () => {
               { href: "/About", text: "About" },
               { href: "/Contact", text: "Contact" }
             ].map((link) => (
-              <Link 
+              <Link
                 key={link.href}
                 href={link.href}
                 className="text-gray-800 hover:text-amber-800 transition duration-300 relative group"
@@ -129,7 +187,7 @@ const Navbar = () => {
           {/* Right Side Icons */}
           <div className="flex items-center space-x-4">
             {/* Cart Button */}
-            <button 
+            <button
               onClick={() => setIsCartOpen(!isCartOpen)}
               className="cart-button relative text-gray-800 hover:text-amber-800 transition duration-300 p-2"
               aria-label="Cart"
@@ -146,17 +204,17 @@ const Navbar = () => {
             {isLoggedIn ? (
               <div className="relative group">
                 <button className="w-10 h-10 rounded-full bg-amber-800 text-white flex items-center justify-center">
-                  U
+                  <i className="fas fa-user"></i>
                 </button>
-                <div className="absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg py-1 z-50 hidden group-hover:block">
+                <div className="absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg py-1 z-50 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 delay-300">
                   <Link href="/profile" className="block px-4 py-2 text-gray-800 hover:bg-amber-50 hover:text-amber-800">
                     <i className="fas fa-user mr-2"></i> My Profile
                   </Link>
                   <Link href="/orders" className="block px-4 py-2 text-gray-800 hover:bg-amber-50 hover:text-amber-800">
                     <i className="fas fa-box mr-2"></i> My Orders
                   </Link>
-                  <button 
-                    onClick={() => setIsLoggedIn(false)} 
+                  <button
+                    onClick={handleLogout}
                     className="block w-full text-left px-4 py-2 text-gray-800 hover:bg-amber-50 hover:text-amber-800"
                   >
                     <i className="fas fa-sign-out-alt mr-2"></i> Logout
@@ -165,13 +223,13 @@ const Navbar = () => {
               </div>
             ) : (
               <div className="hidden md:flex space-x-3">
-                <button 
+                <button
                   onClick={() => openAuthModal('login')}
                   className="px-4 py-2 border-2 border-amber-800 text-amber-800 rounded-full hover:bg-amber-800 hover:text-white transition duration-300"
                 >
                   Login
                 </button>
-                <button 
+                <button
                   onClick={() => openAuthModal('signup')}
                   className="px-4 py-2 bg-amber-800 text-white rounded-full hover:bg-amber-700 transition duration-300"
                 >
@@ -196,9 +254,8 @@ const Navbar = () => {
         </div>
 
         {/* Mobile Menu */}
-        <div className={`md:hidden bg-white shadow-lg transition-all duration-300 ${
-          isMenuOpen ? 'max-h-screen py-4' : 'max-h-0 overflow-hidden'
-        }`}>
+        <div className={`md:hidden bg-white shadow-lg transition-all duration-300 ${isMenuOpen ? 'max-h-screen py-4' : 'max-h-0 overflow-hidden'
+          }`}>
           <div className="container mx-auto px-4 flex flex-col space-y-4">
             {[
               { href: "/", text: "Home" },
@@ -207,7 +264,7 @@ const Navbar = () => {
               { href: "/About", text: "About" },
               { href: "/Contact", text: "Contact" }
             ].map((link) => (
-              <Link 
+              <Link
                 key={link.href}
                 href={link.href}
                 className="text-gray-800 hover:text-amber-800 py-2"
@@ -217,13 +274,13 @@ const Navbar = () => {
               </Link>
             ))}
             <div className="flex space-x-3 pt-2">
-              <button 
+              <button
                 onClick={() => openAuthModal('login')}
                 className="px-4 py-2 border-2 border-amber-800 text-amber-800 rounded-full hover:bg-amber-800 hover:text-white transition duration-300"
               >
                 Login
               </button>
-              <button 
+              <button
                 onClick={() => openAuthModal('signup')}
                 className="px-4 py-2 bg-amber-800 text-white rounded-full hover:bg-amber-700 transition duration-300"
               >
@@ -238,13 +295,12 @@ const Navbar = () => {
       <div className={`h-${isScrolled ? '16' : '20'} transition-all duration-300`}></div>
 
       {/* Cart Sidebar */}
-      <div className={`cart-sidebar fixed top-0 right-0 h-full w-full md:w-96 bg-white shadow-xl transform transition-transform duration-300 z-[60] ${
-        isCartOpen ? 'translate-x-0' : 'translate-x-full'
-      }`}>
+      <div className={`cart-sidebar fixed top-0 right-0 h-full w-full md:w-96 bg-white shadow-xl transform transition-transform duration-300 z-[60] ${isCartOpen ? 'translate-x-0' : 'translate-x-full'
+        }`}>
         <div className="p-4 border-b flex justify-between items-center">
           <h3 className="text-xl font-bold">Your Cart ({cartCount})</h3>
-          <button 
-            onClick={() => setIsCartOpen(false)} 
+          <button
+            onClick={() => setIsCartOpen(false)}
             className="text-gray-500 hover:text-amber-800 p-2"
             aria-label="Close cart"
           >
@@ -256,8 +312,8 @@ const Navbar = () => {
             <div className="text-center py-8">
               <i className="fas fa-shopping-cart text-4xl text-gray-300 mb-4"></i>
               <p className="text-gray-500">Your cart is empty</p>
-              <Link 
-                href="/Products" 
+              <Link
+                href="/Products"
                 className="mt-4 inline-block px-6 py-2 bg-amber-800 text-white rounded-full hover:bg-amber-700 transition"
                 onClick={() => setIsCartOpen(false)}
               >
@@ -282,22 +338,22 @@ const Navbar = () => {
                     <h4 className="font-medium">{item.name}</h4>
                     <p className="text-amber-800 font-semibold">SLL {item.price}</p>
                     <div className="flex items-center mt-2">
-                      <button 
+                      <button
                         onClick={() => updateItemQuantity(item.id, item.quantity - 1)}
-                        className="w-8 h-8 flex  items-center justify-center border rounded-full hover:bg-gray-100"
-                      >-
-                        
+                        className="w-8 h-8 flex items-center justify-center border rounded-full hover:bg-gray-100"
+                      >
+                        -
                       </button>
                       <span className="mx-3 w-8 text-center">{item.quantity}</span>
-                      <button 
+                      <button
                         onClick={() => updateItemQuantity(item.id, item.quantity + 1)}
                         className="w-8 h-8 flex items-center justify-center border rounded-full hover:bg-gray-100"
-                      >+
-                        
+                      >
+                        +
                       </button>
                     </div>
                   </div>
-                  <button 
+                  <button
                     onClick={() => removeItem(item.id)}
                     className="text-gray-400 hover:text-red-500 p-2"
                   >
@@ -332,21 +388,19 @@ const Navbar = () => {
             {/* Tabs */}
             <div className="flex border-b">
               <button
-                className={`flex-1 py-4 font-medium text-lg transition-colors ${
-                  activeAuthTab === 'login'
+                className={`flex-1 py-4 font-medium text-lg transition-colors ${activeAuthTab === 'login'
                     ? 'text-amber-800 border-b-2 border-amber-800'
                     : 'text-gray-500 hover:text-amber-700'
-                }`}
+                  }`}
                 onClick={() => switchAuthTab('login')}
               >
                 Login
               </button>
               <button
-                className={`flex-1 py-4 font-medium text-lg transition-colors ${
-                  activeAuthTab === 'signup'
+                className={`flex-1 py-4 font-medium text-lg transition-colors ${activeAuthTab === 'signup'
                     ? 'text-amber-800 border-b-2 border-amber-800'
                     : 'text-gray-500 hover:text-amber-700'
-                }`}
+                  }`}
                 onClick={() => switchAuthTab('signup')}
               >
                 Sign Up
@@ -364,7 +418,7 @@ const Navbar = () => {
                     </div>
                   </div>
                   <h3 className="text-center text-xl font-semibold mb-6">Welcome Back</h3>
-                  <form onSubmit={handleAuthSubmit}>
+                  <form onSubmit={(e) => handleAuthSubmit(e, 'login')}>
                     <div className="mb-4">
                       <label className="block text-gray-700 mb-2" htmlFor="login-email">
                         Email Address
@@ -375,6 +429,7 @@ const Navbar = () => {
                         </div>
                         <input
                           id="login-email"
+                          name="email"
                           type="email"
                           placeholder="your@email.com"
                           className="w-full pl-10 pr-3 py-2 border rounded-lg focus:ring-2 focus:ring-amber-500 focus:border-amber-500 outline-none transition"
@@ -392,6 +447,7 @@ const Navbar = () => {
                         </div>
                         <input
                           id="login-password"
+                          name="password"
                           type="password"
                           placeholder="••••••••"
                           className="w-full pl-10 pr-3 py-2 border rounded-lg focus:ring-2 focus:ring-amber-500 focus:border-amber-500 outline-none transition"
@@ -410,7 +466,7 @@ const Navbar = () => {
                           Remember me
                         </label>
                       </div>
-                      <a href="#" className="text-sm text-amber-700 hover:text-amber-800">
+                      <a href="/Contact" className="text-sm text-amber-700 hover:text-amber-800">
                         Forgot password?
                       </a>
                     </div>
@@ -442,7 +498,7 @@ const Navbar = () => {
                     </div>
                   </div>
                   <h3 className="text-center text-xl font-semibold mb-6">Create Account</h3>
-                  <form onSubmit={handleAuthSubmit}>
+                  <form onSubmit={(e) => handleAuthSubmit(e, 'signup')}>
                     <div className="mb-4">
                       <label className="block text-gray-700 mb-2" htmlFor="signup-name">
                         Full Name
@@ -453,6 +509,7 @@ const Navbar = () => {
                         </div>
                         <input
                           id="signup-name"
+                          name="name"
                           type="text"
                           placeholder="John Doe"
                           className="w-full pl-10 pr-3 py-2 border rounded-lg focus:ring-2 focus:ring-amber-500 focus:border-amber-500 outline-none transition"
@@ -470,6 +527,7 @@ const Navbar = () => {
                         </div>
                         <input
                           id="signup-email"
+                          name="email"
                           type="email"
                           placeholder="your@email.com"
                           className="w-full pl-10 pr-3 py-2 border rounded-lg focus:ring-2 focus:ring-amber-500 focus:border-amber-500 outline-none transition"
@@ -487,6 +545,7 @@ const Navbar = () => {
                         </div>
                         <input
                           id="signup-password"
+                          name="password"
                           type="password"
                           placeholder="••••••••"
                           className="w-full pl-10 pr-3 py-2 border rounded-lg focus:ring-2 focus:ring-amber-500 focus:border-amber-500 outline-none transition"
@@ -504,6 +563,7 @@ const Navbar = () => {
                         </div>
                         <input
                           id="signup-confirm-password"
+                          name="confirmPassword"
                           type="password"
                           placeholder="••••••••"
                           className="w-full pl-10 pr-3 py-2 border rounded-lg focus:ring-2 focus:ring-amber-500 focus:border-amber-500 outline-none transition"
@@ -514,6 +574,7 @@ const Navbar = () => {
                     <div className="mb-6 flex items-center">
                       <input
                         id="terms"
+                        name="terms"
                         type="checkbox"
                         className="h-4 w-4 text-amber-600 focus:ring-amber-500 border-gray-300 rounded"
                         required
