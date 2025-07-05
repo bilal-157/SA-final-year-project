@@ -19,5 +19,5 @@ export function middleware(request) {
 }
 
 export const config = {
-  matcher: ['/api/products,api/users,api/seed'], // protected routes
+  matcher: ['/api/products,api/users'], // protected routes
 };

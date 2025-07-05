@@ -72,6 +72,7 @@ const Navbar = () => {
   const openAuthModal = (type) => {
     setActiveAuthTab(type);
     type === 'login' ? (setIsLoginOpen(true), setIsSignupOpen(false)) : (setIsSignupOpen(true), setIsLoginOpen(false));
+    setIsMenuOpen(false); // Close mobile menu when opening auth modal
   };
 
   const handleLogout = () => {
@@ -200,43 +201,45 @@ const Navbar = () => {
               )}
             </button>
 
-            {/* User Auth Section */}
-            {isLoggedIn ? (
-              <div className="relative group">
-                <button className="w-10 h-10 rounded-full bg-amber-800 text-white flex items-center justify-center">
-                  <i className="fas fa-user"></i>
-                </button>
-                <div className="absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg py-1 z-50 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 delay-300">
-                  <Link href="/profile" className="block px-4 py-2 text-gray-800 hover:bg-amber-50 hover:text-amber-800">
-                    <i className="fas fa-user mr-2"></i> My Profile
-                  </Link>
-                  <Link href="/orders" className="block px-4 py-2 text-gray-800 hover:bg-amber-50 hover:text-amber-800">
-                    <i className="fas fa-box mr-2"></i> My Orders
-                  </Link>
-                  <button
-                    onClick={handleLogout}
-                    className="block w-full text-left px-4 py-2 text-gray-800 hover:bg-amber-50 hover:text-amber-800"
-                  >
-                    <i className="fas fa-sign-out-alt mr-2"></i> Logout
+            {/* User Auth Section - Desktop */}
+            <div className="hidden md:flex items-center space-x-3">
+              {isLoggedIn ? (
+                <div className="relative group">
+                  <button className="w-10 h-10 rounded-full bg-amber-800 text-white flex items-center justify-center">
+                    <i className="fas fa-user"></i>
                   </button>
+                  <div className="absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg py-1 z-50 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 delay-300">
+                    <Link href="/profile" className="block px-4 py-2 text-gray-800 hover:bg-amber-50 hover:text-amber-800">
+                      <i className="fas fa-user mr-2"></i> My Profile
+                    </Link>
+                    <Link href="/orders" className="block px-4 py-2 text-gray-800 hover:bg-amber-50 hover:text-amber-800">
+                      <i className="fas fa-box mr-2"></i> My Orders
+                    </Link>
+                    <button
+                      onClick={handleLogout}
+                      className="block w-full text-left px-4 py-2 text-gray-800 hover:bg-amber-50 hover:text-amber-800"
+                    >
+                      <i className="fas fa-sign-out-alt mr-2"></i> Logout
+                    </button>
+                  </div>
                 </div>
-              </div>
-            ) : (
-              <div className="hidden md:flex space-x-3">
-                <button
-                  onClick={() => openAuthModal('login')}
-                  className="px-4 py-2 border-2 border-amber-800 text-amber-800 rounded-full hover:bg-amber-800 hover:text-white transition duration-300"
-                >
-                  Login
-                </button>
-                <button
-                  onClick={() => openAuthModal('signup')}
-                  className="px-4 py-2 bg-amber-800 text-white rounded-full hover:bg-amber-700 transition duration-300"
-                >
-                  Sign Up
-                </button>
-              </div>
-            )}
+              ) : (
+                <>
+                  <button
+                    onClick={() => openAuthModal('login')}
+                    className="px-4 py-2 border-2 border-amber-800 text-amber-800 rounded-full hover:bg-amber-800 hover:text-white transition duration-300"
+                  >
+                    Login
+                  </button>
+                  <button
+                    onClick={() => openAuthModal('signup')}
+                    className="px-4 py-2 bg-amber-800 text-white rounded-full hover:bg-amber-700 transition duration-300"
+                  >
+                    Sign Up
+                  </button>
+                </>
+              )}
+            </div>
 
             {/* Mobile Menu Button */}
             <button
@@ -254,7 +257,7 @@ const Navbar = () => {
         </div>
 
         {/* Mobile Menu */}
-        <div className={`md:hidden bg-white shadow-lg transition-all duration-300 ${isMenuOpen ? 'max-h-screen py-4' : 'max-h-0 overflow-hidden'
+        <div className={`md:hidden bg-white shadow-lg transition-all duration-300 overflow-hidden ${isMenuOpen ? 'max-h-screen py-4' : 'max-h-0'
           }`}>
           <div className="container mx-auto px-4 flex flex-col space-y-4">
             {[
@@ -273,20 +276,50 @@ const Navbar = () => {
                 {link.text}
               </Link>
             ))}
-            <div className="flex space-x-3 pt-2">
-              <button
-                onClick={() => openAuthModal('login')}
-                className="px-4 py-2 border-2 border-amber-800 text-amber-800 rounded-full hover:bg-amber-800 hover:text-white transition duration-300"
-              >
-                Login
-              </button>
-              <button
-                onClick={() => openAuthModal('signup')}
-                className="px-4 py-2 bg-amber-800 text-white rounded-full hover:bg-amber-700 transition duration-300"
-              >
-                Sign Up
-              </button>
-            </div>
+
+            {/* Mobile Auth Section */}
+            {isLoggedIn ? (
+              <div className="pt-2 space-y-3">
+                <Link
+                  href="/profile"
+                  className="block px-4 py-2 text-gray-800 hover:bg-amber-50 hover:text-amber-800 rounded-lg"
+                  onClick={() => setIsMenuOpen(false)}
+                >
+                  <i className="fas fa-user mr-2"></i> My Profile
+                </Link>
+                <Link
+                  href="/orders"
+                  className="block px-4 py-2 text-gray-800 hover:bg-amber-50 hover:text-amber-800 rounded-lg"
+                  onClick={() => setIsMenuOpen(false)}
+                >
+                  <i className="fas fa-box mr-2"></i> My Orders
+                </Link>
+                <button
+                  onClick={() => {
+                    handleLogout();
+                    setIsMenuOpen(false);
+                  }}
+                  className="w-full text-left px-4 py-2 text-gray-800 hover:bg-amber-50 hover:text-amber-800 rounded-lg"
+                >
+                  <i className="fas fa-sign-out-alt mr-2"></i> Logout
+                </button>
+              </div>
+            ) : (
+              <div className="flex space-x-3 pt-2">
+                <button
+                  onClick={() => openAuthModal('login')}
+                  className="px-4 py-2 border-2 border-amber-800 text-amber-800 rounded-full hover:bg-amber-800 hover:text-white transition duration-300"
+                >
+                  Login
+                </button>
+                <button
+                  onClick={() => openAuthModal('signup')}
+                  className="px-4 py-2 bg-amber-800 text-white rounded-full hover:bg-amber-700 transition duration-300"
+                >
+                  Sign Up
+                </button>
+              </div>
+            )}
           </div>
         </div>
       </nav>
