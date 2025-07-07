@@ -77,10 +77,12 @@ const Navbar = () => {
   };
 
   const handleLogout = () => {
-    localStorage.removeItem('token');
+    document.cookie = 'token=; Max-Age=0; path=/;';
+    localStorage.removeItem('token'); // ✅ remove token from localStorage
     localStorage.removeItem('user');
     setIsLoggedIn(false);
   };
+  
 
   const handleAuthSubmit = async (e, action) => {
     e.preventDefault();
@@ -114,13 +116,15 @@ const Navbar = () => {
 
       if (action === 'login') {
         // Store the token and user data
-        localStorage.setItem('token', result.token);
+        // New
+        document.cookie = `token=${result.token}; path=/; max-age=86400`;
+        localStorage.setItem('token', result.token); // ✅ This makes `Navbar` detect login
         localStorage.setItem('user', JSON.stringify(result.user));
-        // Update login state
+      
         setIsLoggedIn(true);
-        // Close the modal
         setIsLoginOpen(false);
         setIsSignupOpen(false);
+      
       } else {
         // For signup, switch to login tab
         switchAuthTab('login');
@@ -419,8 +423,8 @@ const Navbar = () => {
             <div className="flex border-b">
               <button
                 className={`flex-1 py-4 font-medium text-lg transition-colors ${activeAuthTab === 'login'
-                    ? 'text-amber-800 border-b-2 border-amber-800'
-                    : 'text-gray-500 hover:text-amber-700'
+                  ? 'text-amber-800 border-b-2 border-amber-800'
+                  : 'text-gray-500 hover:text-amber-700'
                   }`}
                 onClick={() => switchAuthTab('login')}
               >
@@ -428,8 +432,8 @@ const Navbar = () => {
               </button>
               <button
                 className={`flex-1 py-4 font-medium text-lg transition-colors ${activeAuthTab === 'signup'
-                    ? 'text-amber-800 border-b-2 border-amber-800'
-                    : 'text-gray-500 hover:text-amber-700'
+                  ? 'text-amber-800 border-b-2 border-amber-800'
+                  : 'text-gray-500 hover:text-amber-700'
                   }`}
                 onClick={() => switchAuthTab('signup')}
               >

@@ -82,12 +82,11 @@ const Footer = () => {
 
         <div className="pt-6 border-t border-gray-800 text-center text-gray-400 text-sm">
           <p>
-            &copy; {new Date().getFullYear()} Artisan Collection. All rights reserved. | Designed with 
+            &copy; {new Date().getFullYear()} Artisan Collection. All rights reserved. | Designed By Bilal Rafique 
             <FontAwesomeIcon 
               icon={faHeart} 
               className="text-amber-500 mx-1" 
             /> 
-            by Moses Williams
           </p>
         </div>
       </div>
