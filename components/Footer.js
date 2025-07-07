@@ -1,6 +1,6 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faEnvelope, faPhone, faMapMarkerAlt, faHeart } from '@fortawesome/free-solid-svg-icons'
-import { faFacebookF, faTwitter, faInstagram, faPinterest } from '@fortawesome/free-brands-svg-icons'
+import { faFacebookF, faTwitter, faInstagram, faPinterest ,faLinkedinIn, faGithub } from '@fortawesome/free-brands-svg-icons'
 import Link from 'next/link';
 
 const Footer = () => {
@@ -11,20 +11,73 @@ const Footer = () => {
           <div>
             <h3 className="text-xl font-bold mb-4 relative pb-2">About Artisan Collection</h3>
             <p className="text-gray-400 mb-4">
-              Discover the beauty of handmade craftsmanship. Each piece in our collection celebrates 
+              Discover the beauty of handmade craftsmanship. Each piece in our collection celebrates
               the skill and tradition of artisans from around the world.
             </p>
             <div className="flex space-x-4">
-              <Link href="#" className="w-10 h-10 bg-gray-800 rounded-full flex items-center justify-center text-white hover:bg-amber-800 transition duration-300">
+              {/* Facebook */}
+              <Link
+                href="https://www.facebook.com/people/Muhammad-Bilal/pfbid02zUtmCW798BnS4hL83Vt2QbmCGVcfidPud4ZuDe6bBPxXYWEaEb3XzcEWeg9Y9YRl/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="w-10 h-10 bg-gray-800 rounded-full flex items-center justify-center text-white hover:bg-amber-800 transition duration-300"
+                aria-label="Facebook"
+              >
                 <FontAwesomeIcon icon={faFacebookF} />
               </Link>
-              <Link href="#" className="w-10 h-10 bg-gray-800 rounded-full flex items-center justify-center text-white hover:bg-amber-800 transition duration-300">
+
+              {/* Twitter/X */}
+              <Link
+                href="https://twitter.com/jagfer511673"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="w-10 h-10 bg-gray-800 rounded-full flex items-center justify-center text-white hover:bg-amber-800 transition duration-300"
+                aria-label="Twitter"
+              >
                 <FontAwesomeIcon icon={faTwitter} />
               </Link>
-              <Link href="#" className="w-10 h-10 bg-gray-800 rounded-full flex items-center justify-center text-white hover:bg-amber-800 transition duration-300">
+
+              {/* Instagram */}
+              <Link
+                href="https://www.instagram.com/bilal_rafique_11"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="w-10 h-10 bg-gray-800 rounded-full flex items-center justify-center text-white hover:bg-amber-800 transition duration-300"
+                aria-label="Instagram"
+              >
                 <FontAwesomeIcon icon={faInstagram} />
               </Link>
-              <Link href="#" className="w-10 h-10 bg-gray-800 rounded-full flex items-center justify-center text-white hover:bg-amber-800 transition duration-300">
+              {/* LinkedIn */}
+              <Link
+                href="https://www.linkedin.com/in/muhammadbilal711"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="w-10 h-10 bg-gray-800 rounded-full flex items-center justify-center text-white hover:bg-amber-800 transition duration-300"
+                aria-label="LinkedIn"
+              >
+                <FontAwesomeIcon icon={faLinkedinIn} />
+              </Link>
+
+              {/* GitHub */}
+              <Link
+                href="https://github.com/bilal-157/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="w-10 h-10 bg-gray-800 rounded-full flex items-center justify-center text-white hover:bg-amber-800 transition duration-300"
+                aria-label="GitHub"
+              >
+                <FontAwesomeIcon icon={faGithub} />
+              </Link>
+
+
+              {/* Pinterest */}
+              <Link
+                href="https://www.pinterest.com/rafiqueb087"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="w-10 h-10 bg-gray-800 rounded-full flex items-center justify-center text-white hover:bg-amber-800 transition duration-300"
+                aria-label="Pinterest"
+              >
                 <FontAwesomeIcon icon={faPinterest} />
               </Link>
             </div>
@@ -56,23 +109,23 @@ const Footer = () => {
             <h3 className="text-xl font-bold mb-4 relative pb-2">Contact Info</h3>
             <ul className="space-y-2 text-gray-400">
               <li className="flex items-start">
-                <FontAwesomeIcon 
-                  icon={faEnvelope} 
-                  className="text-amber-500 mt-1 mr-3" 
+                <FontAwesomeIcon
+                  icon={faEnvelope}
+                  className="text-amber-500 mt-1 mr-3"
                 />
                 williamsmoses2001@gmail.com
               </li>
               <li className="flex items-start">
-                <FontAwesomeIcon 
-                  icon={faPhone} 
-                  className="text-amber-500 mt-1 mr-3" 
+                <FontAwesomeIcon
+                  icon={faPhone}
+                  className="text-amber-500 mt-1 mr-3"
                 />
                 +232 79711783
               </li>
               <li className="flex items-start">
-                <FontAwesomeIcon 
-                  icon={faMapMarkerAlt} 
-                  className="text-amber-500 mt-1 mr-3" 
+                <FontAwesomeIcon
+                  icon={faMapMarkerAlt}
+                  className="text-amber-500 mt-1 mr-3"
                 />
                 4 Kolleh Lane, Off Aberdeen ferry road
               </li>
@@ -82,11 +135,11 @@ const Footer = () => {
 
         <div className="pt-6 border-t border-gray-800 text-center text-gray-400 text-sm">
           <p>
-            &copy; {new Date().getFullYear()} Artisan Collection. All rights reserved. | Designed By Bilal Rafique 
-            <FontAwesomeIcon 
-              icon={faHeart} 
-              className="text-amber-500 mx-1" 
-            /> 
+            &copy; {new Date().getFullYear()} Artisan Collection. All rights reserved. | Designed By Bilal Rafique
+            <FontAwesomeIcon
+              icon={faHeart}
+              className="text-amber-500 mx-1"
+            />
           </p>
         </div>
       </div>

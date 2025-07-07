@@ -82,7 +82,7 @@ const Navbar = () => {
     localStorage.removeItem('user');
     setIsLoggedIn(false);
   };
-  
+
 
   const handleAuthSubmit = async (e, action) => {
     e.preventDefault();
@@ -120,11 +120,11 @@ const Navbar = () => {
         document.cookie = `token=${result.token}; path=/; max-age=86400`;
         localStorage.setItem('token', result.token); // ✅ This makes `Navbar` detect login
         localStorage.setItem('user', JSON.stringify(result.user));
-      
+
         setIsLoggedIn(true);
         setIsLoginOpen(false);
         setIsSignupOpen(false);
-      
+
       } else {
         // For signup, switch to login tab
         switchAuthTab('login');
