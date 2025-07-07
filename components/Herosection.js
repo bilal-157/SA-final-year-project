@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import Image from 'next/image';
+import Link from 'next/link';
 
 const Hero = () => {
   const [currentSlide, setCurrentSlide] = useState(0);
@@ -16,7 +17,7 @@ const Hero = () => {
       description: 'Handmade with care and passed down through generations.'
     },
     {
-      image: 'https://images.unsplash.com/photo-1584735422189-080e97a8a7cd?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2071&q=80',
+      image: 'https://images.pexels.com/photos/9189265/pexels-photo-9189265.jpeg',
       title: 'Support Local Artisans',
       description: 'Your purchase helps preserve traditional craftsmanship.'
     }
@@ -58,9 +59,11 @@ const Hero = () => {
           <p className="text-xl mb-8 opacity-90 max-w-2xl mx-auto md:mx-0">
             {slides[currentSlide].description}
           </p>
+          <Link href="/Products">
           <button className="px-8 py-3 bg-amber-800 hover:bg-amber-700 text-white rounded-full font-semibold uppercase tracking-wide transition duration-300">
             Shop Now
           </button>
+          </Link>
         </div>
       </div>
 

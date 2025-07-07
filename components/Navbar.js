@@ -2,6 +2,7 @@
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
+import { X } from 'lucide-react';
 
 const Navbar = () => {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -172,7 +173,8 @@ const Navbar = () => {
               { href: "/Featured", text: "Featured" },
               { href: "/Products", text: "Products" },
               { href: "/About", text: "About" },
-              { href: "/Contact", text: "Contact" }
+              { href: "/Contact", text: "Contact" },
+              { href: "/admin", text: "Admin" }
             ].map((link) => (
               <Link
                 key={link.href}
@@ -209,12 +211,7 @@ const Navbar = () => {
                     <i className="fas fa-user"></i>
                   </button>
                   <div className="absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg py-1 z-50 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 delay-300">
-                    <Link href="/profile" className="block px-4 py-2 text-gray-800 hover:bg-amber-50 hover:text-amber-800">
-                      <i className="fas fa-user mr-2"></i> My Profile
-                    </Link>
-                    <Link href="/orders" className="block px-4 py-2 text-gray-800 hover:bg-amber-50 hover:text-amber-800">
-                      <i className="fas fa-box mr-2"></i> My Orders
-                    </Link>
+                  
                     <button
                       onClick={handleLogout}
                       className="block w-full text-left px-4 py-2 text-gray-800 hover:bg-amber-50 hover:text-amber-800"
@@ -265,7 +262,8 @@ const Navbar = () => {
               { href: "/Featured", text: "Featured" },
               { href: "/Products", text: "Products" },
               { href: "/About", text: "About" },
-              { href: "/Contact", text: "Contact" }
+              { href: "/Contact", text: "Contact" },
+              { href: "/admin", text: "Admin" }
             ].map((link) => (
               <Link
                 key={link.href}
@@ -337,7 +335,7 @@ const Navbar = () => {
             className="text-gray-500 hover:text-amber-800 p-2"
             aria-label="Close cart"
           >
-            <i className="fas fa-times text-xl"></i>
+            <X className="w-5 h-5" />
           </button>
         </div>
         <div className="p-4 h-[calc(100%-180px)] overflow-y-auto">

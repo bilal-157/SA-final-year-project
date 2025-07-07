@@ -7,7 +7,7 @@ export function middleware(request) {
   const token = request.cookies.get('token')?.value;
 
   if (!token) {
-    return NextResponse.redirect(new URL('/', request.url));
+    return NextResponse.redirect(new URL('/dsflkajsdf', request.url));
   }
 
   try {
@@ -19,5 +19,5 @@ export function middleware(request) {
 }
 
 export const config = {
-  matcher: ['/api/products,api/users'], // protected routes
+  matcher: [], // protected routes
 };

@@ -8,54 +8,57 @@ import Footer from '@/components/Footer';
 
 const SLIDES = [
   {
-    image: "/images/mask-work.jpeg",
+    image: "https://images.pexels.com/photos/6890266/pexels-photo-6890266.jpeg",
     caption: "Master carver creating traditional ceremonial masks"
   },
   {
-    image: "/images/lady-beads.jpeg",
+    image: "https://images.pexels.com/photos/29765600/pexels-photo-29765600.jpeg",
     caption: "Beadwork artisan crafting intricate jewelry patterns"
   },
   {
-    image: "/images/mom.jpeg",
+    image: "https://images.pexels.com/photos/2171409/pexels-photo-2171409.jpeg",
     caption: "Weaver working on traditional textile patterns"
   },
   {
-    image: "/images/bondo-mask.jpeg",
+    image: "https://images.pexels.com/photos/30195883/pexels-photo-30195883.jpeg",
     caption: "Sculptor shaping wood using traditional tools"
   }
 ];
 
 const AboutPage = () => {
   const [currentSlide, setCurrentSlide] = useState(0);
-  const [isMounted, setIsMounted] = useState(false);
+  const [isAutoPlaying, setIsAutoPlaying] = useState(true);
 
   useEffect(() => {
-    setIsMounted(true);
-    const interval = setInterval(() => {
-      setCurrentSlide((prev) => (prev + 1) % SLIDES.length);
-    }, 5000);
-    return () => {
-      setIsMounted(false);
-      clearInterval(interval);
-    };
-  }, []);
+    let interval;
+    if (isAutoPlaying) {
+      interval = setInterval(() => {
+        setCurrentSlide((prev) => (prev + 1) % SLIDES.length);
+      }, 5000);
+    }
+    return () => clearInterval(interval);
+  }, [isAutoPlaying]);
 
   const goToSlide = (index) => {
-    if (isMounted) {
-      setCurrentSlide(index);
-    }
+    setCurrentSlide(index);
+    // Optional: Pause auto-play when user manually selects a slide
+    setIsAutoPlaying(false);
+    // Optional: Resume auto-play after a delay
+    setTimeout(() => setIsAutoPlaying(true), 10000);
   };
 
   const nextSlide = () => {
-    if (isMounted) {
-      setCurrentSlide((prev) => (prev + 1) % SLIDES.length);
-    }
+    setCurrentSlide((prev) => (prev + 1) % SLIDES.length);
+    // Optional: Reset auto-play timer on manual navigation
+    setIsAutoPlaying(false);
+    setTimeout(() => setIsAutoPlaying(true), 10000);
   };
 
   const prevSlide = () => {
-    if (isMounted) {
-      setCurrentSlide((prev) => (prev - 1 + SLIDES.length) % SLIDES.length);
-    }
+    setCurrentSlide((prev) => (prev - 1 + SLIDES.length) % SLIDES.length);
+    // Optional: Reset auto-play timer on manual navigation
+    setIsAutoPlaying(false);
+    setTimeout(() => setIsAutoPlaying(true), 10000);
   };
 
   return (

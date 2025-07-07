@@ -3,7 +3,8 @@ const nextConfig = {
   images: {
     domains: [
       'images.unsplash.com',
-      'example.com' // Add any other domains you're using for images
+      'example.com',
+      'images.pexels.com' // Add any other domains you're using for images
     ],
   },
 }
