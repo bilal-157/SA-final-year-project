@@ -23,7 +23,7 @@ const FetchDataPage = () => {
   const fetchData = async () => {
     try {
       setLoading(true);
-      const res = await fetch(process.env.NEXT_PUBLIC_API_URL);
+      const res = await fetch(process.env.NEXT_PUBLIC_API_URL_ADMIN);
       const result = await res.json();
       setData(result);
     } catch (error) {

@@ -95,7 +95,7 @@ const Navbar = () => {
     }
 
     try {
-      const response = await fetch('/api/users', {
+      const response = await fetch(process.env.NEXT_PUBLIC_API_URL_USERS, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -211,7 +211,6 @@ const Navbar = () => {
                     <i className="fas fa-user"></i>
                   </button>
                   <div className="absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg py-1 z-50 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 delay-300">
-                  
                     <button
                       onClick={handleLogout}
                       className="block w-full text-left px-4 py-2 text-gray-800 hover:bg-amber-50 hover:text-amber-800"
