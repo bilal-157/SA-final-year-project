@@ -8,15 +8,15 @@ import Footer from '@/components/Footer';
 
 const SLIDES = [
   {
-    image: "https://images.pexels.com/photos/6890266/pexels-photo-6890266.jpeg",
+    image: "/images/saone.jpg",
     caption: "Master carver creating traditional ceremonial masks"
   },
   {
-    image: "https://images.pexels.com/photos/29765600/pexels-photo-29765600.jpeg",
+    image: "/images/satwo.jpg",
     caption: "Beadwork artisan crafting intricate jewelry patterns"
   },
   {
-    image: "https://images.pexels.com/photos/2171409/pexels-photo-2171409.jpeg",
+    image: "/images/sathree.jpg",
     caption: "Weaver working on traditional textile patterns"
   },
   {

@@ -151,7 +151,7 @@ const Contact = () => {
         </svg>
       ),
       title: "Payment Options",
-      content: "We accept Orange Money, AfriMoney, bank transfers, and credit cards. Local pickup with cash payment is also available."
+      content: "We kindly accept Orange Money as our exclusive payment method for your convenience. Thank you for your understanding."
     }
   ];
 

@@ -2,7 +2,7 @@
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
-import { X } from 'lucide-react';
+import { X, ShoppingCart } from 'lucide-react';
 
 const Navbar = () => {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -78,11 +78,10 @@ const Navbar = () => {
 
   const handleLogout = () => {
     document.cookie = 'token=; Max-Age=0; path=/;';
-    localStorage.removeItem('token'); // ✅ remove token from localStorage
+    localStorage.removeItem('token');
     localStorage.removeItem('user');
     setIsLoggedIn(false);
   };
-
 
   const handleAuthSubmit = async (e, action) => {
     e.preventDefault();
@@ -115,10 +114,8 @@ const Navbar = () => {
       }
 
       if (action === 'login') {
-        // Store the token and user data
-        // New
         document.cookie = `token=${result.token}; path=/; max-age=86400`;
-        localStorage.setItem('token', result.token); // ✅ This makes `Navbar` detect login
+        localStorage.setItem('token', result.token);
         localStorage.setItem('user', JSON.stringify(result.user));
 
         setIsLoggedIn(true);
@@ -126,9 +123,7 @@ const Navbar = () => {
         setIsSignupOpen(false);
 
       } else {
-        // For signup, switch to login tab
         switchAuthTab('login');
-        // Show success message
         alert('Account created successfully! Please login.');
       }
     } catch (error) {
@@ -199,7 +194,7 @@ const Navbar = () => {
               className="cart-button relative text-gray-800 hover:text-amber-800 transition duration-300 p-2"
               aria-label="Cart"
             >
-              <i className="fas fa-shopping-cart text-xl"></i>
+              <ShoppingCart className="w-6 h-6" />
               {cartCount > 0 && (
                 <span className="absolute -top-1 -right-1 bg-amber-600 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center">
                   {cartCount}
@@ -344,7 +339,7 @@ const Navbar = () => {
         <div className="p-4 h-[calc(100%-180px)] overflow-y-auto">
           {cartItems.length === 0 ? (
             <div className="text-center py-8">
-              <i className="fas fa-shopping-cart text-4xl text-gray-300 mb-4"></i>
+              <ShoppingCart className="mx-auto w-12 h-12 text-gray-300 mb-4" />
               <p className="text-gray-500">Your cart is empty</p>
               <Link
                 href="/Products"
@@ -391,7 +386,7 @@ const Navbar = () => {
                     onClick={() => removeItem(item.id)}
                     className="text-gray-400 hover:text-red-500 p-2"
                   >
-                    <i className="fas fa-times"></i>
+                    <X className="w-4 h-4" />
                   </button>
                 </div>
               ))}
@@ -646,7 +641,7 @@ const Navbar = () => {
               className="absolute top-4 right-4 text-gray-400 hover:text-gray-600"
               aria-label="Close modal"
             >
-              <i className="fas fa-times text-xl"></i>
+              <X className="w-5 h-5" />
             </button>
           </div>
         </div>

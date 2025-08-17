@@ -17,8 +17,7 @@ const Footer = () => {
             <div className="flex space-x-4">
               {/* Facebook */}
               <Link
-                href="https://www.facebook.com/people/Muhammad-Bilal/pfbid02zUtmCW798BnS4hL83Vt2QbmCGVcfidPud4ZuDe6bBPxXYWEaEb3XzcEWeg9Y9YRl/"
-                target="_blank"
+                href="#"
                 rel="noopener noreferrer"
                 className="w-10 h-10 bg-gray-800 rounded-full flex items-center justify-center text-white hover:bg-amber-800 transition duration-300"
                 aria-label="Facebook"
@@ -28,8 +27,7 @@ const Footer = () => {
 
               {/* Twitter/X */}
               <Link
-                href="https://twitter.com/jagfer511673"
-                target="_blank"
+                href="#"
                 rel="noopener noreferrer"
                 className="w-10 h-10 bg-gray-800 rounded-full flex items-center justify-center text-white hover:bg-amber-800 transition duration-300"
                 aria-label="Twitter"
@@ -39,8 +37,7 @@ const Footer = () => {
 
               {/* Instagram */}
               <Link
-                href="https://www.instagram.com/bilal_rafique_11"
-                target="_blank"
+                href="#"
                 rel="noopener noreferrer"
                 className="w-10 h-10 bg-gray-800 rounded-full flex items-center justify-center text-white hover:bg-amber-800 transition duration-300"
                 aria-label="Instagram"
@@ -49,8 +46,7 @@ const Footer = () => {
               </Link>
               {/* LinkedIn */}
               <Link
-                href="https://www.linkedin.com/in/muhammadbilal711"
-                target="_blank"
+                href="#"
                 rel="noopener noreferrer"
                 className="w-10 h-10 bg-gray-800 rounded-full flex items-center justify-center text-white hover:bg-amber-800 transition duration-300"
                 aria-label="LinkedIn"
@@ -60,8 +56,7 @@ const Footer = () => {
 
               {/* GitHub */}
               <Link
-                href="https://github.com/bilal-157/"
-                target="_blank"
+                href="#"
                 rel="noopener noreferrer"
                 className="w-10 h-10 bg-gray-800 rounded-full flex items-center justify-center text-white hover:bg-amber-800 transition duration-300"
                 aria-label="GitHub"
@@ -72,8 +67,7 @@ const Footer = () => {
 
               {/* Pinterest */}
               <Link
-                href="https://www.pinterest.com/rafiqueb087"
-                target="_blank"
+                href="#"
                 rel="noopener noreferrer"
                 className="w-10 h-10 bg-gray-800 rounded-full flex items-center justify-center text-white hover:bg-amber-800 transition duration-300"
                 aria-label="Pinterest"
@@ -135,7 +129,7 @@ const Footer = () => {
 
         <div className="pt-6 border-t border-gray-800 text-center text-gray-400 text-sm">
           <p>
-            &copy; {new Date().getFullYear()} Artisan Collection. All rights reserved. | Designed By Bilal Rafique
+            &copy; {new Date().getFullYear()} Artisan Collection. All rights reserved. | Designed By William moses
             <FontAwesomeIcon
               icon={faHeart}
               className="text-amber-500 mx-1"

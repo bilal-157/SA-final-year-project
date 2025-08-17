@@ -17,7 +17,7 @@ const Hero = () => {
       description: 'Handmade with care and passed down through generations.'
     },
     {
-      image: 'https://images.pexels.com/photos/9189265/pexels-photo-9189265.jpeg',
+      image: '/images/saflag.jpg',
       title: 'Support Local Artisans',
       description: 'Your purchase helps preserve traditional craftsmanship.'
     }

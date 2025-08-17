@@ -91,7 +91,7 @@ const NewArrivals = () => {
                       alt="Artisan Juan" 
                       className="w-8 h-8 rounded-full mr-2"
                     />
-                    <span className="text-gray-700 text-sm">Woven by Juan in Guatemala</span>
+                    <span className="text-gray-700 text-sm">Woven by Jeneba Gondor</span>
                   </div>
                   <div className="price text-amber-800 font-bold mb-4">SLL 1,800,000 - SLL 3,900,000</div>
                   <Link 
@@ -125,7 +125,7 @@ const NewArrivals = () => {
                       alt="Artisan Koji" 
                       className="w-8 h-8 rounded-full mr-2"
                     />
-                    <span className="text-gray-700 text-sm">Carved by Koji in Kyoto</span>
+                    <span className="text-gray-700 text-sm">Carved by Samuel Ross</span>
                   </div>
                   <div className="price text-amber-800 font-bold mb-4">SLL 2,700,000 - SLL 6,800,000</div>
                   <Link 
@@ -153,7 +153,7 @@ const NewArrivals = () => {
             {/* Coming Soon Item 1 */}
             <div className="coming-soon-item bg-white rounded-lg overflow-hidden shadow-md">
               <img 
-                src="https://images.pexels.com/photos/12630728/pexels-photo-12630728.jpeg" 
+                src="https://images.pexels.com/photos/33395645/pexels-photo-33395645.jpeg" 
                 alt="Indigo Dye Collection" 
                 className="w-full h-48 object-cover"
               />
