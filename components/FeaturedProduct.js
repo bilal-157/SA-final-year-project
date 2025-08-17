@@ -6,7 +6,7 @@ const FeaturedProduct = () => {
     name: "Traditional Pottery Set",
     price: 200,
     image:
-      "https://i.etsystatic.com/56767725/r/il/173e9b/6978031697/il_300x300.6978031697_k4nv.jpg",
+      "https://images.pexels.com/photos/14443651/pexels-photo-14443651.jpeg",
     description:
       "This exquisite pottery set is handcrafted by master artisans using centuries-old techniques. Each piece is unique, with subtle variations that celebrate the beauty of handmade craftsmanship.",
   };
