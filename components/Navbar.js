@@ -276,21 +276,7 @@ const Navbar = () => {
             {/* Mobile Auth Section */}
             {isLoggedIn ? (
               <div className="pt-2 space-y-3">
-                <Link
-                  href="/profile"
-                  className="block px-4 py-2 text-gray-800 hover:bg-amber-50 hover:text-amber-800 rounded-lg"
-                  onClick={() => setIsMenuOpen(false)}
-                >
-                  <i className="fas fa-user mr-2"></i> My Profile
-                </Link>
-                <Link
-                  href="/orders"
-                  className="block px-4 py-2 text-gray-800 hover:bg-amber-50 hover:text-amber-800 rounded-lg"
-                  onClick={() => setIsMenuOpen(false)}
-                >
-                  <i className="fas fa-box mr-2"></i> My Orders
-                </Link>
-                <button
+               <button
                   onClick={() => {
                     handleLogout();
                     setIsMenuOpen(false);
