@@ -36,7 +36,50 @@ const ProductsPage = () => {
   
     fetchProducts();
   }, []);
-  
+
+  // Get all unique values for each filter category
+  const getFilterOptions = () => {
+    const allCategories = ['all', ...new Set(products.map(p => p.category))];
+    const allOrigins = ['all', ...new Set(products.map(p => p.origin))];
+    const allMaterials = ['all', ...new Set(products.map(p => p.material))];
+    
+    // Get available options based on current filters
+    const availableOptions = {
+      category: allCategories,
+      origin: allOrigins,
+      material: allMaterials,
+      sort: ['popular', 'newest', 'price-low', 'price-high', 'rating']
+    };
+
+    // If a category is selected, filter origins and materials to only those that exist for that category
+    if (filters.category !== 'all') {
+      const categoryProducts = products.filter(p => p.category === filters.category);
+      availableOptions.origin = ['all', ...new Set(categoryProducts.map(p => p.origin))];
+      availableOptions.material = ['all', ...new Set(categoryProducts.map(p => p.material))];
+    }
+
+    // If an origin is selected, further filter materials to those available for the selected origin
+    if (filters.origin !== 'all') {
+      const originProducts = products.filter(p => 
+        (filters.category === 'all' || p.category === filters.category) && 
+        p.origin === filters.origin
+      );
+      availableOptions.material = ['all', ...new Set(originProducts.map(p => p.material))];
+    }
+
+    // If a material is selected, filter categories and origins to those that have this material
+    if (filters.material !== 'all') {
+      const materialProducts = products.filter(p => 
+        (filters.category === 'all' || p.category === filters.category) &&
+        (filters.origin === 'all' || p.origin === filters.origin) &&
+        p.material === filters.material
+      );
+      availableOptions.category = ['all', ...new Set(materialProducts.map(p => p.category))];
+      availableOptions.origin = ['all', ...new Set(materialProducts.map(p => p.origin))];
+    }
+
+    return availableOptions;
+  };
 
   const handleSearch = (e) => {
     e.preventDefault();
@@ -84,6 +127,52 @@ const ProductsPage = () => {
 
   const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
+  // Get human-readable labels for filter options
+  const getFilterLabel = (filterKey, value) => {
+    const labelMaps = {
+      category: {
+        'all': 'All Categories',
+        'pottery': 'Pottery & Ceramics',
+        'textiles': 'Textiles & Weaving',
+        'woodwork': 'Woodwork',
+        'metalwork': 'Metalwork',
+        'glass': 'Glass Art',
+        'jewelry': 'Jewelry',
+        'stone': 'Stone Carvings'
+      },
+      origin: {
+        'all': 'All Locations',
+        'Freetown': 'Freetown',
+        'Kenema': 'Kenema',
+        'Bo': 'Bo',
+        'Bonthe': 'Bonthe',
+        'Kono': 'Kono',
+        'Makeni': 'Makeni'
+      },
+      material: {
+        'all': 'All Materials',
+        'clay': 'Clay',
+        'wood': 'Wood',
+        'metal': 'Metal',
+        'fabric': 'Fabric',
+        'glass': 'Glass',
+        'leather': 'Leather',
+        'stone': 'Stone'
+      },
+      sort: {
+        'popular': 'Most Popular',
+        'newest': 'Newest Arrivals',
+        'price-low': 'Price: Low to High',
+        'price-high': 'Price: High to Low',
+        'rating': 'Customer Rating'
+      }
+    };
+    
+    return labelMaps[filterKey]?.[value] || value;
+  };
+
+  const availableOptions = getFilterOptions();
+
   return (
     <div className="font-serif">
       <Navbar />
@@ -121,61 +210,25 @@ const ProductsPage = () => {
 
             {/* Filter dropdowns */}
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-              {['category', 'origin', 'material', 'sort'].map((filterKey) => {
-                const options = {
-                  category: [
-                    ['all', 'All Categories'],
-                    ['pottery', 'Pottery & Ceramics'],
-                    ['textiles', 'Textiles & Weaving'],
-                    ['woodwork', 'Woodwork'],
-                    ['metalwork', 'Metalwork'],
-                    ['glass', 'Glass Art'],
-                    ['jewelry', 'Jewelry'],
-                    ['stone', 'Stone Carvings']
-                  ],
-                  origin: [
-                    ['all', 'All Locations'],
-                    ['Freetown', 'Freetown'],
-                    ['Kenema', 'Kenema'],
-                    ['Bo', 'Bo'],
-                    ['Bonthe', 'Bonthe'],
-                    ['Kono', 'Kono'],
-                    ['Makeni', 'Makeni']
-                  ],
-                  material: [
-                    ['all', 'All Materials'],
-                    ['clay', 'Clay'],
-                    ['wood', 'Wood'],
-                    ['metal', 'Metal'],
-                    ['fabric', 'Fabric'],
-                    ['glass', 'Glass'],
-                    ['leather', 'Leather'],
-                    ['stone', 'Stone']
-                  ],
-                  sort: [
-                    ['popular', 'Most Popular'],
-                    ['newest', 'Newest Arrivals'],
-                    ['price-low', 'Price: Low to High'],
-                    ['price-high', 'Price: High to Low'],
-                    ['rating', 'Customer Rating']
-                  ]
-                };
-                return (
-                  <div key={filterKey}>
-                    <label className="block text-sm font-medium text-gray-700 mb-1 capitalize">{filterKey}</label>
-                    <select
-                      name={filterKey}
-                      value={filters[filterKey]}
-                      onChange={handleFilterChange}
-                      className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-amber-600"
-                    >
-                      {options[filterKey].map(([val, label]) => (
-                        <option key={val} value={val}>{label}</option>
-                      ))}
-                    </select>
-                  </div>
-                );
-              })}
+              {['category', 'origin', 'material', 'sort'].map((filterKey) => (
+                <div key={filterKey}>
+                  <label className="block text-sm font-medium text-gray-700 mb-1 capitalize">
+                    {filterKey === 'sort' ? 'Sort By' : filterKey}
+                  </label>
+                  <select
+                    name={filterKey}
+                    value={filters[filterKey]}
+                    onChange={handleFilterChange}
+                    className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-amber-600"
+                  >
+                    {availableOptions[filterKey].map((value) => (
+                      <option key={value} value={value}>
+                        {getFilterLabel(filterKey, value)}
+                      </option>
+                    ))}
+                  </select>
+                </div>
+              ))}
             </div>
           </div>
         </section>
