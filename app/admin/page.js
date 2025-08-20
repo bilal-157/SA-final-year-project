@@ -377,7 +377,7 @@ const FetchDataPage = () => {
                       </div>
                       
                       <div className="flex justify-between items-center">
-                        <span className="font-bold text-gray-800">${product.price}</span>
+                        <span className="font-bold text-gray-800">SLL {product.price}</span>
                         <div className="flex items-center">
                           <div className="flex items-center text-amber-400">
                             <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" viewBox="0 0 20 20" fill="currentColor">
