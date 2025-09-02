@@ -2,7 +2,7 @@
 import { NextResponse } from 'next/server';
 import { NextRequest } from 'next/server';
 
-const protectedRoutes = ['/admin', '/products', '/checkout']; // Changed to lowercase for consistency
+const protectedRoutes = ['/admin', '/checkout']; // Changed to lowercase for consistency
 
 export function middleware(request) {
   // Try multiple cookie names for better compatibility
@@ -47,8 +47,7 @@ export function middleware(request) {
 
 export const config = {
   matcher: [
-    '/admin/:path*',
-    '/Products/:path*', // Changed to lowercase to match protectedRoutes
+    '/admin/:path*', // Changed to lowercase to match protectedRoutes
     '/Checkout/:path*',
     // Alternative matcher that might work better on Netlify:
     // '/((?!api|_next/static|_next/image|favicon.ico).*)'
